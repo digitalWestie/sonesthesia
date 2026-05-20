@@ -11,9 +11,14 @@ OptionParser.new do |opts|
 		options[:verbose] = true
 	end
 
+	opts.on("-oOUTPUT", "--output=OUTPUT", "Specify output file. Default is example.mid") do |output|
+		options[:output] = output
+	end
+
 	opts.on("-tText", "--text=TEXT", "Specify a text string to compose with") do |text|
 		options[:text] = text
 	end
+
 end.parse!
 
 
@@ -63,4 +68,8 @@ seq = Midicraft.build(tempo: 140, time_signature: [4, 4]) do
   end
 end
 
-seq.write("example.mid")
+output_filename = "example.mid"
+if options[:output]
+	output_filename = options[:output]
+end
+seq.write(output_filename)

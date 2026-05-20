@@ -2,6 +2,9 @@ require 'optparse'
 require 'digest/sha1'
 require 'midicraft'
 
+DEFAULT_MIDI_OUTPUT_FILE = 'example.mid'
+DEFAULT_BPM = 120
+
 options = {}
 
 OptionParser.new do |opts|
@@ -15,8 +18,12 @@ OptionParser.new do |opts|
 		options[:output] = output
 	end
 
-	opts.on("-tText", "--text=TEXT", "Specify a text string to compose with") do |text|
+	opts.on("-tTEXT", "--text=TEXT", "Specify a text string to compose with") do |text|
 		options[:text] = text
+	end
+
+	opts.on("-bBPM", "--bpm=BPM", "Specify tempo as Beats per Minute. Default is 120") do |bpm|
+		options[:bpm] = bpm.to_i
 	end
 
 end.parse!
@@ -44,23 +51,26 @@ pairs.each do |p|
 	values << p.hex
 end
 
+scale = %w(A3 B3 C3 D3 E3 F3 G3 A4 B4 C4 D4 E4 F4 G4)
+values_per_note = 256 / scale.length
+
 values.each do |v|
 	durations << (v%100 < 50 ? :quarter : :eighth)
-	case v
-	when 0..50
-		notes << 'C4'
-	when 51..100
-		notes << 'D4'
-	when 101..150
-		notes << 'E4'
-	when 151..200
-		notes << 'F4'
-	else
-		notes << 'G4'
+	scale.length.times.each do |i|
+		# puts "#{i * values_per_note} to #{(i + 1) * values_per_note}"
+		if v < (i + 1) * values_per_note
+			note = scale[i]
+			notes << note
+			break
+		end
 	end
 end
 
-seq = Midicraft.build(tempo: 140, time_signature: [4, 4]) do
+if options[:verbose]
+	puts notes.join(' ')
+end
+
+seq = Midicraft.build(tempo: options[:bpm] || DEFAULT_BPM, time_signature: [4, 4]) do
   track "Lead", instrument: :clarinet, channel: 0 do
     notes.each_with_index do |n, i|
       note n, velocity: 100, duration: durations[i]
@@ -68,8 +78,4 @@ seq = Midicraft.build(tempo: 140, time_signature: [4, 4]) do
   end
 end
 
-output_filename = "example.mid"
-if options[:output]
-	output_filename = options[:output]
-end
-seq.write(output_filename)
+seq.write(options[:output] || DEFAULT_MIDI_OUTPUT_FILE)

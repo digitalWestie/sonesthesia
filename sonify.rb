@@ -1,12 +1,39 @@
-require "midicraft"
+require 'optparse'
+require 'digest/sha1'
+require 'midicraft'
 
-options = ARGV
-puts options
+options = {}
 
-hash = options[0]
+OptionParser.new do |opts|
+	opts.banner = "Usage: sonify.rb [hash] [options]"
+
+	opts.on("-v", "--verbose", "Enable verbose mode") do
+		options[:verbose] = true
+	end
+
+	opts.on("-tText", "--text=TEXT", "Specify a text string to compose with") do |text|
+		options[:text] = text
+	end
+end.parse!
+
+
+hash = ''
+if ARGV[0]
+	hash = ARGV[0]
+end
+
+if options[:text]
+	hash = Digest::SHA1.hexdigest options[:text]
+end
+
 values = []
 durations = []
 notes = []
+
+if options[:verbose]
+	puts hash
+end
+
 pairs = hash.chars.each_slice(2).map{|p| p.join}
 pairs.each do |p|
 	values << p.hex

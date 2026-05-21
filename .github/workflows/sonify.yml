@@ -20,7 +20,7 @@ jobs:
           bundler-cache: true
 
       - name: Generate MIDI from commit
-        run: ruby sonify.rb "${GITHUB_SHA}" -o build.mid
+        run: bundle exec ruby sonify.rb "${GITHUB_SHA}" -o build.mid
 
       - name: Upload MIDI artifact
         uses: actions/upload-artifact@v4

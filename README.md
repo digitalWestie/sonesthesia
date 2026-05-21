@@ -1,3 +1,6 @@
+[![Sonify commit](https://github.com/tirami/sonesthesia/actions/workflows/sonify.yml/badge.svg)](https://github.com/tirami/sonesthesia/actions/workflows/sonify.yml)
+
+
 # Sonesthesia
 
 Sonesthesia (sonification + synesthesia) is a tool to generate music, but also an experimental idea: _can we use music to help us remember what we last did on a project?_
@@ -19,7 +22,7 @@ In short, how it works:
  - We build a MIDI file with the notes and durations
 
 
-***sonify action*** is a GitHub Actions workflow that uses sonify.rb to generate a MIDI file for the current commit. The file is made available via [workflow artifacts](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts) feature. The retention period for the MIDI file is 30 days. If there's been a run in the last 30 days you can download it.
+***sonify action*** is a GitHub Actions workflow that uses sonify.rb to generate a MIDI file for the current commit. The file is made available as a [workflow artifact](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts). The retention period for the MIDI file is 30 days. If there's been a run in [the last 30 days you can download it](https://github.com/tirami/sonesthesia/actions/).
 
 
 ## Install / prerequisites
@@ -63,12 +66,12 @@ Anything to improve the range and musicality of the generated music.
 - Channel/instrument flags
 - Map duration to velocity or pitch bend
 
-### Workflow and use examples
+### Use cases / examples
 
-Create a bank of scripts or workflow examples that employ sonesthesia in interesting ways. If not in here, perhaps links out to other repos or blog posts. E.g.
+Create a bank of scripts, hooks, and examples that employ sonesthesia in interesting ways. If not in here, perhaps links out to other repos or blog posts. E.g.
 
 - git hook sample (post-commit → play or save commit-<short>.mid)
-
+- IDE plugins that play the music when you save a file
 
 ### Experiments
 

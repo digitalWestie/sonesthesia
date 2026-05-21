@@ -1,3 +1,6 @@
+[![Sonify commit](https://github.com/tirami/sonesthesia/actions/workflows/sonify.yml/badge.svg)](https://github.com/tirami/sonesthesia/actions/workflows/sonify.yml)
+
+
 # Sonesthesia
 
 Sonesthesia (sonification + synesthesia) is a tool to generate music, but also an experimental idea: _can we use music to help us remember what we last did on a project?_
@@ -7,7 +10,7 @@ Coding, writing, and other deep work is done in a state of flow where we build u
 
 ## What's in the repo?
 
-sonify.rb is a Ruby script that uses [Midicraft](https://github.com/mattdiamond/MidiCraft) to generate a short MIDI file based on a hash of a commit.
+**sonify.rb** is a Ruby script that uses [Midicraft](https://github.com/ydah/midicraft) to generate a short MIDI file based on a hash of a commit.
 
 If you don't want to use with a commit hash, the script can use a text string you provide and generate a hash for you.
 
@@ -19,11 +22,12 @@ In short, how it works:
  - We build a MIDI file with the notes and durations
 
 
+***sonify action*** is a GitHub Actions workflow that uses sonify.rb to generate a MIDI file for the current commit. The file is made available as a [workflow artifact](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts). The retention period for the MIDI file is 30 days. If there's been a run in [the last 30 days you can download it](https://github.com/tirami/sonesthesia/actions/).
+
+
 ## Install / prerequisites
 
-- Ruby
-- Midi player (e.g. timidity)
-- Midicraft gem
+Just run bundle install and you're good to go. You'll need a MIDI player to listen to the output. [timidity](https://en.wikipedia.org/wiki/TiMidity++) is a good option.
 
 
 ## Usage examples
@@ -48,7 +52,6 @@ Things we'd like to do with the project. Not necessarily in the order of priorit
 ### Housekeeping improvements
 
 - Validation of input
-- Gemfile
 - Tests
 
 ### Configuration improvements
@@ -63,12 +66,12 @@ Anything to improve the range and musicality of the generated music.
 - Channel/instrument flags
 - Map duration to velocity or pitch bend
 
-### Workflow and use examples
+### Use cases / examples
 
-Create a bank of scripts or workflow examples that employ sonesthesia in interesting ways. If not in here, perhaps links out to other repos or blog posts. E.g.
+Create a bank of scripts, hooks, and examples that employ sonesthesia in interesting ways. If not in here, perhaps links out to other repos or blog posts. E.g.
 
 - git hook sample (post-commit → play or save commit-<short>.mid)
-- CI artifact: "build music for this release tag"
+- IDE plugins that play the music when you save a file
 
 ### Experiments
 

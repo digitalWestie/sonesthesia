@@ -10,7 +10,9 @@ Coding, writing, and other deep work is done in a state of flow where we build u
 
 ## What's in the repo?
 
-**sonify.rb** is a Ruby script that uses [Midicraft](https://github.com/ydah/midicraft) to generate a short MIDI file based on a hash of a commit.
+### Sonify.rb
+
+A Ruby script that uses [Midicraft](https://github.com/ydah/midicraft) to generate a short MIDI file based on a hash of a commit.
 
 If you don't want to use with a commit hash, the script can use a text string you provide and generate a hash for you.
 
@@ -21,8 +23,11 @@ In short, how it works:
  - Hex digits are converted to an array and mapped to notes
  - We build a MIDI file with the notes and durations
 
+### Sonify workflow
 
-***sonify action*** is a GitHub Actions workflow that uses sonify.rb to generate a MIDI file for the current commit. The file is made available as a [workflow artifact](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts). The retention period for the MIDI file is 30 days. If there's been a run in [the last 30 days you can download it](https://github.com/tirami/sonesthesia/actions/).
+A GitHub Actions workflow that uses sonify.rb to generate a MIDI file for the current commit. The file is made available as a [workflow artifact](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts). The retention period for the MIDI file is 30 days. If there's been a run in [the last 30 days you can download it](https://github.com/tirami/sonesthesia/actions/).
+
+This workflow is intended to be a bit of a living example of how you might use sonesthesia in a project.
 
 
 ## Install / prerequisites

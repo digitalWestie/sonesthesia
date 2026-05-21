@@ -1,0 +1,30 @@
+name: Sonify commit
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  sonify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Generate MIDI from commit
+        run: ruby sonify.rb "${GITHUB_SHA}" -o build.mid
+
+      - name: Upload MIDI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonification-${{ github.sha }}
+          path: build.mid
+          retention-days: 30

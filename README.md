@@ -7,7 +7,7 @@ Coding, writing, and other deep work is done in a state of flow where we build u
 
 ## What's in the repo?
 
-sonify.rb is a Ruby script that uses [Midicraft](https://github.com/mattdiamond/MidiCraft) to generate a short MIDI file based on a hash of a commit.
+sonify.rb is a Ruby script that uses [Midicraft](https://github.com/ydah/midicraft) to generate a short MIDI file based on a hash of a commit.
 
 If you don't want to use with a commit hash, the script can use a text string you provide and generate a hash for you.
 
@@ -21,9 +21,9 @@ In short, how it works:
 
 ## Install / prerequisites
 
-- Ruby
-- Midi player (e.g. timidity)
-- Midicraft gem
+- Ruby 4.0.1 (see `.ruby-version`)
+- MIDI player (e.g. [timidity](https://en.wikipedia.org/wiki/TiMidity++))
+- [Bundler](https://bundler.io/)
 
 
 ## Usage examples
@@ -48,7 +48,6 @@ Things we'd like to do with the project. Not necessarily in the order of priorit
 ### Housekeeping improvements
 
 - Validation of input
-- Gemfile
 - Tests
 
 ### Configuration improvements
